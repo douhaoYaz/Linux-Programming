@@ -1,0 +1,17 @@
+包装库libwrapper.a的创建和使用方法
+
+一、包装库libwrapper.a的创建方法
+    先删除就的库文件libwrapper.a，再编译两个源文件，并打包成libwrapper.a。命令序列如下：
+       rm libwrapper.a
+       gcc  -c    wrapper.c  ptwrapper.c
+       ar  rc  libwrapper.a  wrapper.o  ptwrapper.o
+    这里的libwrapper.a库文件是在ubuntu8环境下创建的，但也兼容很多其他环境下。
+
+二、包装库使用方法
+    对于调用包装函数的C程序，应将这里的wrapper.h和libwrapper.a两个文件复制到C程序所在目录，
+在gcc编译命令中增加两个命令选项-L.和-lwrapper。即编译命令为：
+    gcc  -o   <<输出文件名》 <<源文件1>> <<原文件2>> ...  -L.  -lwrapper
+
+三、使用包装库libwrapper.a报告不兼容错误的处理
+    对于ubuntu14等较高版本的Linux系统，用这里创建好的libwrapper.a来编译程序会报不兼容错误，
+如果这样，使用者可用上面的命令在该环境下重新生成libwrapper.a即可。
